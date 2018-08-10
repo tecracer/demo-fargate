@@ -1,0 +1,30 @@
+{
+    "executionRoleArn": "arn:aws:iam::123456789012:role/ecsdemoservice",
+    "containerDefinitions": [
+        {
+
+            "portMappings": [ {
+                "containerPort": 80,
+                "hostPort": 80
+            } ],
+            "cpu": 512,
+            "environment": [],
+            "mountPoints": [],
+            "memory": 1024,
+            "volumesFrom": [],
+            "image": "123456789012.dkr.ecr.eu-west-1.amazonaws.com/fargate-demo:latest",
+            "essential": true,
+            "name": "fargate-php-demo"
+        }
+    ],
+    "memory": "1024",
+    "taskRoleArn": "arn:aws:iam::123456789012:role/ecsdemoservice",
+    "family": "fargate-php-demo",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "512",
+    "volumes": [],
+    "placementConstraints": []
+}

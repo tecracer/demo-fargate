@@ -1,0 +1,6 @@
+EnvironmentName:    fargatedemo
+VpcCIDR:            10.0.16.0/20
+PublicSubnet1CIDR:  10.0.16.0/22
+PublicSubnet2CIDR:  10.0.20.0/22
+PrivateSubnet1CIDR: 10.0.24.0/22
+PrivateSubnet2CIDR: 10.0.28.0/22

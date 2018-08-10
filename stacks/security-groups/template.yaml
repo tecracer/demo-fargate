@@ -1,0 +1,46 @@
+Description: >
+    This template contains the security groups required by our entire stack.
+    We create them in a seperate nested template, so they can be referenced
+    by all of the other nested templates.
+
+Parameters:
+    
+    EnvironmentName:
+        Description: An environment name that will be prefixed to resource names
+        Type: String
+    
+    NetworkStack:
+        Type: String
+        Description: VPC Stack name
+        Default: "vpc"
+
+Resources:
+
+
+    WebserviceSG:
+        Type: AWS::EC2::SecurityGroup
+        Properties: 
+            VpcId: 
+                Fn::ImportValue:
+                  !Sub "${NetworkStack}-vpc"
+            GroupDescription: Access to the load balancer that sits in front of ECS
+            SecurityGroupIngress:
+                # Allow access from anywhere to our ECS services
+                - CidrIp: 0.0.0.0/0
+                  FromPort: 80
+                  IpProtocol: tcp
+                  ToPort: 80
+            Tags: 
+                - Key: Name
+                  Value: !Sub ${EnvironmentName}-WebServiceSG                 
+
+Outputs:
+
+    WebserviceSG:
+        Description: SG for Webservice
+        Value: !Ref WebserviceSG
+        Export:
+            Name: WebserviceSG
+
+
+

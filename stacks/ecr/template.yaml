@@ -1,0 +1,5 @@
+Resources:
+  MyRepository: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      RepositoryName: "fargate-demo"

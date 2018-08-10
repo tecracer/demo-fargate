@@ -1,0 +1,42 @@
+Description: >
+    This template deploysthe ecs role
+
+Resources:
+    ServiceRole: 
+        Type: AWS::IAM::Role
+        Properties: 
+            RoleName: ecsdemoservice
+            Path: /
+            AssumeRolePolicyDocument: |
+                {
+                    "Statement": [{
+                        "Effect": "Allow",
+                        "Principal": { "Service": [ "ecs-tasks.amazonaws.com" ]},
+                        "Action": [ "sts:AssumeRole" ]
+                    }]
+                }
+            Policies: 
+                - PolicyName: !Sub ecs-service-${AWS::StackName}
+                  PolicyDocument: 
+                    {
+                        "Version": "2012-10-17",
+                        "Statement": [{
+                                "Effect": "Allow",
+                                "Action": [
+                                    "ecr:GetAuthorizationToken",
+                                    "ecr:BatchCheckLayerAvailability",
+                                    "ecr:GetDownloadUrlForLayer",
+                                    "ecr:BatchGetImage",
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                ],
+                                "Resource": "*"
+                        },
+                        {
+                            "Effect" : "Allow",
+                            "Action": [
+                                "ecr:Get*"
+                            ],
+                                "Resource": "*"
+                        }]
+                    }
